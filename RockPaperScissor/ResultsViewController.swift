@@ -16,8 +16,8 @@ enum Shape: String {
     
     // Computers Randomizer function for his move
     static func randomShape() -> Shape {
-        let shapes = ["Rock", "Paper", "Scissors"]    //Let shapes array contains three possible answers
-        let randomChoice = Int(arc4random_uniform(3)) //Random from 0 - 3
+        let shapes = ["Rock", "Paper", "Scissors"]    //Let shapes array contains the three possible answers, which represet 0,1,2
+        let randomChoice = Int(arc4random_uniform(3)) //Random from 0 - 2
         print("CPU Shape: " + shapes[randomChoice])
         return Shape(rawValue: shapes[randomChoice])! //Return one of the three values
     }
