@@ -8,14 +8,14 @@
 
 import UIKit
 
-// The enum "Shape" represents a play or move
+// The enum "Shape" represents a play or move of User from ChoiceViewController
 enum Shape: String {
     case Rock = "Rock"
     case Paper = "Paper"
     case Scissors = "Scissors"
     
-    // Computers Randomizer function for his move
-    static func randomShape() -> Shape {
+    // Random Shape for CPU
+    static func randomShapeForCPU() -> Shape {
         let shapes = ["Rock", "Paper", "Scissors"]    //Let shapes array contains the three possible answers, which represet 0,1,2
         let randomChoice = Int(arc4random_uniform(3)) //Random from 0 - 2
         print("CPU Shape: " + shapes[randomChoice])
@@ -30,7 +30,7 @@ class ResultsViewController: UIViewController {
     
     //Pass in the choices that were made by the user and the computer randomizer
     var userChoice: Shape!
-    private let opponentChoice: Shape = Shape.randomShape()
+    private let opponentChoice: Shape = Shape.randomShapeForCPU()
     
     //When viewWillAppear shows, it will display the result
     override func viewWillAppear(animated: Bool) {
@@ -43,28 +43,27 @@ class ResultsViewController: UIViewController {
         // Ideally, most of this would be handled by a model.
         var imageName: String
         var text: String
-        let matchup = "\(userChoice.rawValue) vs. \(opponentChoice.rawValue)"
+        let gameMatch = "\(userChoice.rawValue) vs. \(opponentChoice.rawValue)"
         
         //Pass in Users choice and CPU Choice
         switch (userChoice!, opponentChoice) {
         
         //If both user and CPU have the same answer set the match up to tie and return tie photo
         case let (user, opponent) where user == opponent:
-            text = "\(matchup): it's a tie!"
+            text = "\(gameMatch): it's a tie!"
             imageName = "Tie"
             
-        //If Player whens in any of threee argument return win matchup with right photo
+        //If Player whens in any of three argument return win matchup with right photo
         case (.Rock, .Scissors), (.Paper, .Rock), (.Scissors, .Paper):
-            text = "You win with \(matchup)!"
+            text = "You win with \(gameMatch)!"
             imageName = "\(userChoice.rawValue)_\(opponentChoice.rawValue)"
             
         //Base case: if user loses and does not match any arguments, return lose matchup and right photo matchup
         default:
-            text = "You lose with \(matchup) :(."
+            text = "You lose with \(gameMatch) , Try Again :D"
             imageName = "\(opponentChoice.rawValue)_\(userChoice.rawValue)"
         }
         
-        //imageName = imageName.lowercaseString
         //Update Your Image and Text
         resultImage.image = UIImage(named: imageName)
         resultLabel.text = text

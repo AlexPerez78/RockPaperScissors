@@ -12,7 +12,7 @@ class ChoiceViewController: UIViewController {
     
     @IBAction private func playRock(sender: UIButton) {
         let vc = self.storyboard?.instantiateViewControllerWithIdentifier("ResultsViewController") as! ResultsViewController
-        vc.userChoice = getUserShape(sender) //Send the Name of the button choice to Results view
+        vc.userChoice = getShape(sender) //Send the Name of the button choice to Results view
         presentViewController(vc, animated: true, completion: nil) //Present the Results view controller
     }
     
@@ -24,12 +24,12 @@ class ChoiceViewController: UIViewController {
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
         if segue.identifier == "result" {
             let vc = segue.destinationViewController as! ResultsViewController
-            vc.userChoice = getUserShape(sender as! UIButton) //Send the Name of the button choice to Results view
+            vc.userChoice = getShape(sender as! UIButton) //Send the Name of the button choice to Results view
         }
     }
     
     // The enum "Shape" represents a play or move
-    private func getUserShape(sender: UIButton) -> Shape {
+    private func getShape(sender: UIButton) -> Shape {
         
         //Grabs the title of the button to set to shape
         let shape = sender.titleForState(.Normal)!
